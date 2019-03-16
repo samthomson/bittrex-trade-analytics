@@ -3,5 +3,6 @@ services:
   app:
     build:
       context: ./
+    command: yarn run watch
     volumes:
       - ./:/app
