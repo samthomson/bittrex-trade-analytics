@@ -1,2 +1,6 @@
+# config
+.env
+
+# packages
 node_modules
 dist
