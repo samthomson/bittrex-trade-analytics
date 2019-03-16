@@ -1,2 +1,2 @@
 // @ts-ignore
-console.log('main script')
+console.log('main script updated')
