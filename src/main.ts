@@ -39,7 +39,6 @@ const main = async () => {
 
 	// net per market
 	let aMarketNets: { [key: string]: number } = {}
-	// let aMarketNets: any[] = []
 
 	amRefinedOrderHistory.forEach((oRefinedOrder: any) => {
 		const sMarket: string = oRefinedOrder['Exchange']
@@ -50,7 +49,7 @@ const main = async () => {
 	});
 
 	// net across all markets
-	let cTotalNet: number = Object.keys(aMarketNets).reduce(function (previous, key) {
+	const cTotalNet: number = Object.keys(aMarketNets).reduce(function (previous, key) {
 		return previous + aMarketNets[key];
 	}, 0);
 
