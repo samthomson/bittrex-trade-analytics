@@ -14,5 +14,8 @@
     "build": "tsc",
     "start": "ts-node src/main.ts",
     "watch": "tsc-watch --onSuccess \"yarn run start\""
+  },
+  "devDependencies": {
+    "@types/node": "^11.12.2"
   }
 }

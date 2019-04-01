@@ -36,7 +36,7 @@ const bittrexRequest = async (
     const options = {
         headers: {
             Accept: 'text/json',
-            apisign: hmac(BITTREX_API_SECRET, signUri),
+            apisign: hmac(BITTREX_API_SECRET || 'key-missing', signUri),
         },
         method: 'GET',
         url: signUri,

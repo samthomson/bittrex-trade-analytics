@@ -21,7 +21,8 @@ const main = async () => {
 		}
 	})
 
-	// calculate 'costs'
+
+	// calculate 'costs' per trade
 	amRefinedOrderHistory = amRefinedOrderHistory.map((oRefinedOrder: any) => {
 		// base cost
 		let cost = (oRefinedOrder['PricePerUnit'] * oRefinedOrder['Quantity'])
@@ -34,14 +35,45 @@ const main = async () => {
 			cost = cost - oRefinedOrder['Commission']
 		}
 
+		// @ts-ignore
+		console.log('cost ', cost)
+
 		return {
 			...oRefinedOrder,
 			cost
 		}
 	})
-
 	// @ts-ignore
 	console.log(amRefinedOrderHistory)
+
+	// net per market
+	let aMarketNets: { [key: string]: number } = {}
+	// let aMarketNets: any[] = []
+
+	amRefinedOrderHistory.forEach((oRefinedOrder: any) => {
+		const sMarket: string = oRefinedOrder['Exchange']
+		if (aMarketNets[sMarket] === undefined) {
+			aMarketNets[sMarket] = 0
+			console.log('setting to zero')
+		}
+		console.log('adding the value')
+		aMarketNets[sMarket] += Number(oRefinedOrder['cost'])
+	});
+	// @ts-ignore
+	console.log(aMarketNets)
+
+	// net across all markets
+	// @ts-ignore
+	// let cTotalNet: number = aMarketNets.reduce(
+	// 	(a: any,b: any) => a['cost'] + b['cost']
+	// )
+	// @ts-ignore
+	let cTotalNet: number = Object.keys(aMarketNets).reduce(function (previous, key) {
+		// @ts-ignore
+		return previous + aMarketNets[key];
+	}, 0);
+	console.log('cTotalNet: ', cTotalNet)
+
 }
 
 main()

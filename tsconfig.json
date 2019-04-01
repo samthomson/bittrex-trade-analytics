@@ -5,7 +5,8 @@
       "declaration": true,
       "outDir": "./dist",
       "strict": true,
-      "lib": [ "es2015" ]
+	  "lib": [ "es2015", "dom" ],
+	  "types": ["node"]
     },
     "include": [
         "src/**/*.ts"
@@ -14,4 +15,4 @@
         "node_modules",
         "test"
     ]
-  }
+}
