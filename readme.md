@@ -5,3 +5,9 @@ Given a [read access] Bittrex API key, this project reads and aggregates histori
 `docker-compose up` to start
 
 `docker-compose run app sh` to enter container
+
+
+### total cost to me
+
+sell = ([price per unit] * quantity) - commision
+buy = (([price per unit] * quantity) + commision) *= -1
