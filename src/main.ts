@@ -2,10 +2,6 @@ import { getOrderHistory } from './bittrexAPI'
 
 const main = async () => {
 	let amOrderHistory = await getOrderHistory()
-	// @ts-ignore
-	console.log(`mOrderHistory`)
-	// @ts-ignore
-	// console.log(amOrderHistory)
 
 	// take just what we are interested in
 	let amRefinedOrderHistory = amOrderHistory.map((oOrder: any) => {
@@ -35,16 +31,11 @@ const main = async () => {
 			cost = cost - oRefinedOrder['Commission']
 		}
 
-		// @ts-ignore
-		console.log('cost ', cost)
-
 		return {
 			...oRefinedOrder,
 			cost
 		}
 	})
-	// @ts-ignore
-	console.log(amRefinedOrderHistory)
 
 	// net per market
 	let aMarketNets: { [key: string]: number } = {}
@@ -54,26 +45,21 @@ const main = async () => {
 		const sMarket: string = oRefinedOrder['Exchange']
 		if (aMarketNets[sMarket] === undefined) {
 			aMarketNets[sMarket] = 0
-			console.log('setting to zero')
 		}
-		console.log('adding the value')
 		aMarketNets[sMarket] += Number(oRefinedOrder['cost'])
 	});
-	// @ts-ignore
-	console.log(aMarketNets)
 
 	// net across all markets
-	// @ts-ignore
-	// let cTotalNet: number = aMarketNets.reduce(
-	// 	(a: any,b: any) => a['cost'] + b['cost']
-	// )
-	// @ts-ignore
 	let cTotalNet: number = Object.keys(aMarketNets).reduce(function (previous, key) {
-		// @ts-ignore
 		return previous + aMarketNets[key];
 	}, 0);
-	console.log('cTotalNet: ', cTotalNet)
 
+	console.log('Net summary from last 30 days:')
+	console.log('Profit/loss per market:')
+	Object.keys(aMarketNets).forEach((sMarket: string) => {
+		console.log(`${sMarket}: ${aMarketNets[sMarket]}`)
+	})
+	console.log('cTotalNet: ', cTotalNet)
 }
 
 main()
